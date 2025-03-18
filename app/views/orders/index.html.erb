@@ -1,0 +1,36 @@
+<!-- app/views/orders/index.html.erb -->
+<h1>Orders</h1>
+
+<div class="filter-form">
+  <%= form_tag orders_path, method: :get do %>
+    <%= select_tag :status, 
+                  options_for_select(Order.statuses.keys, params[:status]),
+                  prompt: "All Statuses",
+                  onchange: "this.form.submit();" %>
+  <% end %>
+</div>
+
+<table class="orders-table">
+  <thead>
+    <tr>
+      <th>Order #</th>
+      <th>Customer</th>
+      <th>Status</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.customer.name %></td>
+        <td><span class="status-<%= order.status %>"><%= order.status.titleize %></span></td>
+        <td><%= order.created_at.strftime("%b %d, %Y %H:%M") %></td>
+        <td>
+          <%= link_to "View Details", order_path(order) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
