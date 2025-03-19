@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
     has_many :reservations
     
     validates :email, presence: true, uniqueness: true
-    validates :name, presence: true
+    validates :name, presence: tru
   
     scope :frequent_customers, -> {
       joins(:orders)
@@ -12,4 +12,11 @@ class Customer < ApplicationRecord
         .having('COUNT(orders.id) >= 5')
         .includes(:orders) # Avoids N+1 queries when loading order details
     }
+    before_create :generate_api_key
+  
+    private
+    
+    def generate_api_key
+      self.api_key = SecureRandom.hex(24)
+    end
   end

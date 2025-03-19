@@ -1,0 +1,36 @@
+<h1>Table Reservations</h1>
+
+<div class="filter-form">
+  <%= form_tag reservations_path, method: :get do %>
+    <%= date_field_tag :date, params[:date] || Date.today %>
+    <%= submit_tag "Filter" %>
+  <% end %>
+</div>
+
+<table class="reservations-table">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Customer</th>
+      <th>Table</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.reserved_at.strftime("%H:%M") %></td>
+        <td><%= reservation.customer.name %></td>
+        <td><%= reservation.table_number %></td>
+        <td><%= reservation.status.titleize %></td>
+        <td>
+          <%= form_for reservation do |f| %>
+            <%= f.select :status, Reservation.statuses.keys.map { |s| [s.titleize, s] } %>
+            <%= f.submit "Update" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
