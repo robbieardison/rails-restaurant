@@ -41,4 +41,18 @@ class ProcessCustomerCsvJob
       File.delete(csv_path) if File.exist?(csv_path)
     end
   end
+  
+  private
+  
+  def sanitize_csv_value(value)
+    return nil if value.nil?
+    
+    # Remove any potentially dangerous characters
+    value = value.to_s.gsub(/[^\w\s@.-]/, '')
+    
+    # Prevent SQL injection by escaping quotes
+    value = ActiveRecord::Base.connection.quote_string(value)
+    
+    value.strip
+  end
 end

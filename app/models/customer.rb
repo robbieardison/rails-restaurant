@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
     has_many :reservations
     
     validates :email, presence: true, uniqueness: true
-    validates :name, presence: tru
+    validates :name, presence: true
   
     scope :frequent_customers, -> {
       joins(:orders)

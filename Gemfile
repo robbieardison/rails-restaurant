@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 gem 'devise'
 gem 'rotp'
+gem 'sidekiq', '~> 6.2', '>= 6.2.2'
+gem 'secure_headers'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]

@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # Staff authentication routes
   devise_for :staffs, controllers: { sessions: 'staffs/sessions' }
@@ -31,4 +33,8 @@ Rails.application.routes.draw do
   
   # Dashboard
   root to: 'dashboard#index'
+  
+  authenticate :staff do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

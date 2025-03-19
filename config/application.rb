@@ -2,6 +2,8 @@ require_relative "boot"
 
 require "rails/all"
 
+require "devise"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -23,5 +25,18 @@ module RailsRestaurant
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.active_job.queue_adapter = :sidekiq
+    # Log to STDOUT in production
+    if ENV["RAILS_LOG_TO_STDOUT"].present?
+      logger           = ActiveSupport::Logger.new(STDOUT)
+      logger.formatter = config.log_formatter
+      config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    end
+    
+    # Configure session store
+    config.session_store :cookie_store, key: '_restaurant_app_session', expire_after: 2.weeks
+    
+    # Configure for better error handling
+    config.exceptions_app = self.routes
   end
 end

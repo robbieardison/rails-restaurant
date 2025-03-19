@@ -6,4 +6,4 @@ class Order < ApplicationRecord
     
     # Scope to filter by status
     scope :by_status, ->(status) { where(status: status) if status.present? }
-  end
+end

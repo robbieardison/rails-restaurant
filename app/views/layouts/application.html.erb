@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Rails Restaurant" %></title>
+    <title>Restaurant Management</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="app-container">
+      <% if staff_signed_in? %>
+        <nav class="sidebar">
+          <div class="logo">
+            <h2>Restaurant App</h2>
+          </div>
+          <ul class="nav-links">
+            <li><%= link_to "Dashboard", root_path %></li>
+            <li><%= link_to "Orders", orders_path %></li>
+            <li><%= link_to "Reservations", reservations_path %></li>
+            <li><%= link_to "Customers", customers_path %></li>
+            <li><%= link_to "Import Customers", new_customer_path %></li>
+            <li><%= link_to "Sign Out", destroy_staff_session_path, method: :delete %></li>
+          </ul>
+        </nav>
+      <% end %>
+      
+      <div class="main-content">
+        <% if notice %>
+          <div class="alert alert-success"><%= notice %></div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger"><%= alert %></div>
+        <% end %>
+        
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
