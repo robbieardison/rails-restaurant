@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
   
   # Customer data management
-  resources :customers, only: [:index, :new, :show] do
+  resources :customers do
     collection do
       post :upload_csv
     end

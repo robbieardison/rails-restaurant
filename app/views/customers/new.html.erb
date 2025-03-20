@@ -1,0 +1,38 @@
+<h1>Import Customers</h1>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
+<% if flash[:notice] %>
+  <div class="alert alert-info"><%= flash[:notice] %></div>
+<% end %>
+
+<div class="upload-form">
+  <%= form_with url: upload_csv_customers_path, method: :post, local: true, multipart: true do |f| %>
+    <div class="form-group">
+      <%= f.label :file, "Select CSV File" %>
+      <%= f.file_field :file, accept: '.csv' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Import Customers", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="csv-format-info">
+  <h3>CSV Format Instructions</h3>
+  <p>Please ensure your CSV file has the following headers:</p>
+  <ul>
+    <li>name</li>
+    <li>email</li>
+    <li>phone</li>
+    <li>address (optional)</li>
+  </ul>
+
+  <p>Example:</p>
+  <pre>name,email,phone,address
+John Doe,john@example.com,555-123-4567,123 Main St
+Jane Smith,jane@example.com,555-987-6543,456 Oak Ave</pre>
+</div>
