@@ -1,7 +1,7 @@
 class Reservation < ApplicationRecord
     belongs_to :customer
     
-    enum status: { pending: 0, confirmed: 1, cancelled: 2 }
+    enum :status, { pending: 0, confirmed: 1, cancelled: 2 }
     
     validates :table_number, :reserved_at, presence: true
     validates :table_number, numericality: { only_integer: true, greater_than: 0 }
