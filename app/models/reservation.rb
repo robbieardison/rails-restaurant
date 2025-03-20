@@ -29,16 +29,15 @@ class Reservation < ApplicationRecord
     
     def no_overlapping_reservations
       return unless table_number.present? && reserved_at.present?
-      
-      # Consider a reservation to occupy a table for 2 hours
+    
       reservation_end = reserved_at + 2.hours
-      
+    
       overlapping = Reservation.where(table_number: table_number)
-                               .where.not(id: id) # Exclude self when updating
+                               .where.not(id: id)
                                .where.not(status: :cancelled)
-                               .where('reserved_at < ? AND (reserved_at + INTERVAL \'2 hours\') > ?', 
-                                      reservation_end, reserved_at)
-      
+                               .where('reserved_at < ? AND ? < ?',
+                                      reservation_end, reserved_at, reservation_end)
+    
       if overlapping.exists?
         errors.add(:base, "This table is already reserved during this time period")
       end

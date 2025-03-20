@@ -23,7 +23,7 @@
             <li><%= link_to "Reservations", reservations_path %></li>
             <li><%= link_to "Customers", customers_path %></li>
             <li><%= link_to "Import Customers", new_customer_path %></li>
-            <li><%= link_to "Sign Out", destroy_staff_session_path, method: :delete %></li>
+            <li><%= button_to "Sign Out", destroy_staff_session_path, method: :delete %></li>
           </ul>
         </nav>
       <% end %>
