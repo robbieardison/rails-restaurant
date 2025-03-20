@@ -34,9 +34,12 @@ end
 
 # Create some customers
 customers = [
-  { name: 'John Doe', email: 'john@example.com', phone: '123-456-7890', address: '123 Main St' },
-  { name: 'Jane Smith', email: 'jane@example.com', phone: '098-765-4321', address: '456 Oak Ave' },
-  { name: 'Bob Johnson', email: 'bob@example.com', phone: '555-123-4567', address: '789 Pine Rd' },
+  { "name": "Soekarno", "email": "soekarno@example.com", "phone": "555-123-4567", "address": "Jl. Pegangsaan Timur 56, Jakarta" },
+  { "name": "Mohammad Hatta", "email": "hatta@example.com", "phone": "555-987-6543", "address": "Jl. Diponegoro 57, Jakarta" },
+  { "name": "Megawati Soekarnoputri", "email": "megawati@example.com", "phone": "555-222-3333", "address": "Jl. Teuku Umar 27, Jakarta" },
+  { "name": "Abdurrahman Wahid", "email": "gusdur@example.com", "phone": "555-444-5555", "address": "Jl. Taman Amir Hamzah 8, Jakarta" },
+  { "name": "Joko Widodo", "email": "jokowi@example.com", "phone": "555-666-7777", "address": "Istana Negara, Jakarta" },
+  { "name": "Try Sutrisno", "email": "try.sutrisno@example.com", "phone": "555-777-8888", "address": "Jl. Purwakarta 10, Jakarta" }
 ]
 
 customers.each do |customer|
@@ -48,16 +51,16 @@ customers = Customer.all
 menu_items = MenuItem.all
 
 customers.each do |customer|
-  # Create 2-4 orders for each customer
-  rand(2..4).times do
+  # Create 2-10 orders for each customer
+  rand(2..10).times do
     # Create order with random status
     order = customer.orders.create!(
       status: Order.statuses.keys.sample,
       created_at: rand(1..30).days.ago
     )
     
-    # Add 1-5 items to the order
-    rand(1..5).times do
+    # Add 1-7 items to the order
+    rand(1..7).times do
       menu_item = menu_items.sample
       order.order_items.create!(
         menu_item: menu_item,
