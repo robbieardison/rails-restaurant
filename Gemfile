@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem 'devise'
 gem 'rotp'
-gem 'sidekiq', '~> 6.2', '>= 6.2.2'
+gem 'sidekiq', '~> 8.0'
 gem 'secure_headers'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
